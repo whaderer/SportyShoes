@@ -16,24 +16,17 @@ public class PurchaseItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
-    private Long ID;
+    private Long id;
 
-    @Column(name = "purchase_id")
     private Long purchaseId;
 
-    @Column(name = "product_id")
     private Long productId;
 
-    @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "rate")
     private BigDecimal rate;
 
-    @Column(name = "qty")
     private int qty;
 
-    @Column(name = "price")
     private BigDecimal price;
 }

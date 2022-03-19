@@ -18,13 +18,10 @@ public class Admin {
 	// define the identifier generation strategy
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	// not "necessary", unless you want to override default column naming, or default datastore column type etc.
-	@Column(name = "ID")
-	private Long ID;
+	private Long id;
 
-	@Column(name = "admin_id")
 	private String adminId;
-	
-	@Column(name = "admin_pwd")
+
 	private String adminPwd;
 
 }

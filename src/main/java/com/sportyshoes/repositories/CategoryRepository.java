@@ -9,6 +9,6 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
 
     @Modifying(clearAutomatically = true)
     @Query("update Category c set c.name = ?1" +
-            "where c.ID = ?1")
+            "where c.id = ?1")
     int updateCategory(Category c);
 }

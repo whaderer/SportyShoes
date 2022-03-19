@@ -17,15 +17,11 @@ public class Purchase {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID")
-	private Long ID;
-	
-	@Column(name = "user_id")
+	private Long id;
+
 	private Long userId;
-	
-	@Column(name = "date")
+
 	private Date date;
-	
-	@Column(name = "gross_total")
+
 	private BigDecimal total;
 }

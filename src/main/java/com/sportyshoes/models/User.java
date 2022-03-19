@@ -1,42 +1,76 @@
 package com.sportyshoes.models;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 
-@Data
+// Implementations of UserDetails will provide some essential user information to
+// the framework, such as what authorities are granted to the user and whether the user’s
+// account is enabled.
+
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PUBLIC, force = true)
-public class User {
+@Data
+@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
+@RequiredArgsConstructor
+public class User implements UserDetails {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
-    private Long ID;
+    private Long id;
 
-    @Column(name = "fname")
-    private String fname;
+    // ToDo validation
+    private final String username;
+    private final String firstname;
+    private final String lastname;
+    private final String address;
+    private final int age;
+    private final String password;
 
-    @Column(name = "lname")
-    private String lname;
-
-    @Column(name = "address")
-    private String address;
-
-    @Column(name = "age")
-    private int age;
-
-    @Column(name = "date_added")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dateAdded;
+    @PrePersist
+    private void onCreate() {
+        dateAdded = new Date();
+    }
 
-    @Column(name = "emailid")
-    private String emailId;
+    // The getAuthorities() method should return a collection of authorities granted
+    // to the user. The various is* methods return a boolean to indicate whether the user’s
+    // account is enabled, locked, or expired.
+    // The User entity, the getAuthorities() method simply returns a collection
+    // indicating that all users will have been granted ROLE_USER authority. And, at least for
+    // now, there  is no need to disable users, so all of the is* methods return true to
+    // indicate that the users are active.
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
 
-    @Column(name = "pwd")
-    private String pwd;
+        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

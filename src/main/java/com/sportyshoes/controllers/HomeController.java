@@ -5,7 +5,6 @@ import com.sportyshoes.models.Product;
 import com.sportyshoes.services.CategoryService;
 import com.sportyshoes.services.ProductService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -75,17 +74,8 @@ public class HomeController {
 
     @GetMapping(path = "/allProducts")
     String getAllProducts(javax.servlet.http.HttpServletRequest request) {
+        System.out.println("ALL PRODUCTS");
         HttpSession session = request.getSession();
-        return "index";
-    }
-
-    @RequestMapping("/home")
-    public String home(
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String color,
-            Model page) {
-        page.addAttribute("username", name);
-        page.addAttribute("color", color);
         return "index";
     }
 }

@@ -1,6 +1,5 @@
 package com.sportyshoes.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +17,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long ID;
+    private Long id;
 
     private String name;
 

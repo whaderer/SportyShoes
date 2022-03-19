@@ -9,11 +9,14 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
     <div class="container">
         <div class="navbar-collapse collapse">
-            <a href="home">Home</a>
-            <a href="login">Login/Signup</a>
-            <a href="dashboard">Dashboard</a>
+            <a th:href="@{/home/allProducts}">Home</a>
+            <a th:href="@{/userlogin}">Login</a>
+            <a th:href="@{/register}">Signup</a>
+            <a th:href="@{/dashboard}">Dashboard</a>
             <a href="cart">Cart</a>
-            <a href="logout">Logout</a>
+            <form method="POST" th:action="@{/logout}">
+                <input type="submit" value="Logout"/>
+            </form>
             <a href="editprofile">Edit Profile</a>
             <a href="memberpurchases">Your Orders</a>
         </div>
