@@ -1,5 +1,6 @@
 package com.sportyshoes.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +24,7 @@ public class Product {
 
     private BigDecimal price;
 
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date dateAdded;
 
     private Long categoryId;

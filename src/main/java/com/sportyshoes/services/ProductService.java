@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,16 +42,9 @@ public class ProductService {
     }
 
     @Transactional
-    public Product addProduct(String name, BigDecimal price, Date dateAdded, Long categoryId){
-        Product p = new Product();
-      p.setName(name);
-      p.setPrice(price);
-      p.setDateAdded(dateAdded);
-      p.setCategoryId(categoryId);
-       return productRepository.save(p);
+    public Product addProduct(Product product) {
+        return productRepository.save(product);
     }
-
-
 
 //    @Transactional
 //    public List<Object> getAllProductsWithJoin() {

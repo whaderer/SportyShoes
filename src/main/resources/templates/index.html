@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TEST</title>
+</head>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Date Added</th>
+        <th>Category ID</th>
+        <td>Add to Cart</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="p : ${allProducts}">
+        <td th:text="${p.getName()}">Name</td>
+        <td th:text="${p.getPrice()}">Name</td>
+        <td th:text="${p.getDateAdded()}">Date</td>
+        <td th:text="${p.getCategoryId()}">ID</td>
+        <td>
+            <a href="cartadditem?id=${item.ID}">Add To Cart</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
