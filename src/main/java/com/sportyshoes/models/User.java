@@ -50,7 +50,6 @@ public class User implements UserDetails {
     // indicate that the users are active.
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
         return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
