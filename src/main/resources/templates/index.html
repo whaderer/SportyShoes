@@ -12,7 +12,7 @@
         <th>Name</th>
         <th>Price</th>
         <th>Date Added</th>
-        <th>Category ID</th>
+        <th>Category</th>
         <td>Add to Cart</td>
     </tr>
     </thead>
@@ -21,15 +21,15 @@
         <td th:text="${p.getName()}">Name</td>
         <td th:text="${p.getPrice()}">Name</td>
         <td th:text="${p.getDateAdded()}">Date</td>
-        <td th:text="${p.getCategoryId()}">ID</td>
+        <td th:text="${mapCategories.get(p.id)}">ID</td>
         <td>
-            <a href="cartadditem?id=${item.ID}">Add To Cart</a>
+            <a th:href="@{/cartadditem(id=${p.id})}">Add To Cart</a>
         </td>
     </tr>
     </tbody>
 </table>
 <div th:if="${user} != null">
-    <h2>NAME</h2>
+    <h2 th:text="${user}">NAME</h2>
 </div>
 </body>
 </html>

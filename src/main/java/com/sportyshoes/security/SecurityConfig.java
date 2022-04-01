@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -85,7 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/dashboard").access("hasRole('USER')")
+                .antMatchers("/dashboard", "/cart").access("hasRole('USER')")
                 .antMatchers("/", "/**").access("permitAll()")
 
                 .and() // replace built-in login page
@@ -96,7 +95,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutSuccessUrl("/home/allProducts")
-                ;
+                .and()
+                .csrf().disable()
+             //   .anonymous().disable()
+        ;
     }
 
     @Override
@@ -105,7 +107,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
-
     }
 
     @Bean(name = "authenticationManager")

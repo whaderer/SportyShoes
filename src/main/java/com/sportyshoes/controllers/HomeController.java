@@ -2,7 +2,6 @@ package com.sportyshoes.controllers;
 
 import com.sportyshoes.models.Category;
 import com.sportyshoes.models.Product;
-import com.sportyshoes.models.User;
 import com.sportyshoes.repositories.UserRepository;
 import com.sportyshoes.services.CategoryService;
 import com.sportyshoes.services.ProductService;
@@ -10,17 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 
 @RequestMapping("/home")
 @Controller
 public class HomeController {
 
-    private ProductService productService;
-    private CategoryService categoryService;
-    private UserRepository userRepository;
+    private final ProductService productService;
+    private final CategoryService categoryService;
+    private final UserRepository userRepository;
 
     @Autowired
     public HomeController(ProductService productService, CategoryService categoryService, UserRepository userRepository) {
@@ -75,22 +74,34 @@ public class HomeController {
     }
 
     @ModelAttribute("allProducts")
-    public List<Product> populateFeatures() {
+    public List<Product> populateProducts() {
         return this.productService.getAllProducts();
     }
 
     // accept a java.security.Principal as a parameter.
     @ModelAttribute(name = "user")
-    public String user(Principal principal) {
+    public String mapCat(Principal principal) {
         if (principal != null) {
             return principal.getName();
         }
         return null;
     }
 
+    @ModelAttribute(name = "mapCategories")
+    public HashMap<Long, String> mapCategories() {
+        List<Product> list = productService.getAllProducts();
+        // use MAP to map the category names to product rows
+        HashMap<Long, String> mapCats = new HashMap<Long, String>();
+        for (Product product : list) {
+            Category category = categoryService.getCategoryById(product.getCategoryId());
+            if (category != null)
+                mapCats.put(product.getId(), category.getName());
+        }
+        return mapCats;
+    }
+
     @GetMapping(path = "/allProducts")
-    String getAllProducts(javax.servlet.http.HttpServletRequest request) {
-        HttpSession session = request.getSession();
+    public String getAllProducts() {
         return "index";
     }
 }

@@ -3,7 +3,8 @@ package com.sportyshoes.security;
 import com.sportyshoes.models.User;
 import com.sportyshoes.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class UserRepositoryUserDetailsService 
         implements UserDetailsService {
 
-  private UserRepository userRepo;
+  private final UserRepository userRepo;
 
   @Autowired
   public UserRepositoryUserDetailsService(UserRepository userRepo) {
@@ -20,7 +21,7 @@ public class UserRepositoryUserDetailsService
   }
   
   @Override
-  public UserDetails loadUserByUsername(String username)
+  public User loadUserByUsername(String username)
       throws UsernameNotFoundException {
     User user = userRepo.findByUsername(username);
     if (user != null) {
@@ -28,6 +29,14 @@ public class UserRepositoryUserDetailsService
     }
     throw new UsernameNotFoundException(
                     "User '" + username + "' not found");
+  }
+
+  public boolean isUserAuthenticated() {
+    return SecurityContextHolder.getContext().getAuthentication() != null &&
+            SecurityContextHolder.getContext().getAuthentication().isAuthenticated() &&
+            //when Anonymous Authentication is enabled
+            !(SecurityContextHolder.getContext().getAuthentication()
+                    instanceof AnonymousAuthenticationToken);
   }
 
 }

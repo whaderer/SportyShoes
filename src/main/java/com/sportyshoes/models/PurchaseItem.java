@@ -20,13 +20,17 @@ public class PurchaseItem {
 
     private Long purchaseId;
 
-    private Long productId;
+    // private Long productId;
 
     private Long userId;
 
     private BigDecimal rate;
 
-    private int qty;
+    private int quantity;
 
     private BigDecimal price;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_Id", referencedColumnName = "id")
+    private Product product;
 }

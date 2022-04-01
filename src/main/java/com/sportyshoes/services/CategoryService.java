@@ -4,17 +4,22 @@ import com.sportyshoes.exceptions.ProductNotFoundException;
 import com.sportyshoes.models.Category;
 import com.sportyshoes.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Service
 public class CategoryService {
 
+
+    private final CategoryRepository categoryRepository;
+
     @Autowired
-    private CategoryRepository categoryRepository;
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     @Transactional
     public Category getCategoryById(long id) {
@@ -45,8 +50,8 @@ public class CategoryService {
 //	 @Transactional
 //	 public String getCategoriesDropDown(long id) {
 //		 StringBuilder sb = new StringBuilder("");
-//		 List<Category> list = categoryRepository.getAllCategories();
-//		 for(Category cat: list) {
+//		 List<Category> purchaseList = categoryRepository.getAllCategories();
+//		 for(Category cat: purchaseList) {
 //			 if (cat.getID() == id)
 //				 sb.append("<option value=" + String.valueOf(cat.getID()) + " selected>" + cat.getName() + "</option>");
 //			 else

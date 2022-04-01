@@ -17,7 +17,6 @@ public class UserController {
         return "userLogin";
     }
 
-
     @RequestMapping(value = "/login-error", method = RequestMethod.GET)
     public String login(HttpServletRequest request, Model model) {
         // will return current session if current session exists. If not, it will not create a new session.

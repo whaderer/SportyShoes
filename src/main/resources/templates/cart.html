@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TEST</title>
+</head>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+<body>
+<br><br>Total value:
+<p th:text="${cartValue}"><br>
+<table>
+    <thead>
+    <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Rate</th>
+        <th>Price</th>
+        <td></td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="c : ${cartItems}">
+        <td th:text="${c.getName()}">Name</td>
+        <td th:text="${c.getQuantity()}">Quantity</td>
+        <td th:text="${c.getRate()}">Rate</td>
+        <td th:text="${c.getPrice()}">Price</td>
+        <td>
+            <a th:href="@{/cartdeleteitem(id=${c.getProductId()})}">Remove</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="alert" th:if="${error}" th:text="${error}"></div>
+<br>
+<div th:if="${cartItems.size()>0}">
+    <a th:href="@{/checkout}">Checkout Now</a>
+</div>
+</body>
+</html>
