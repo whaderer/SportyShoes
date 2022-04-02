@@ -25,6 +25,15 @@
         <td th:text="${purchase.getDate()}"></td>
         <td th:text="${purchase.getTotal()}"></td>
 <!--        <td th:text="${mapItems.get(purchase.getId())}"></td>-->
+        <td>
+            <p th:each="purchaseitem : ${purchaseItemList}">
+                <span th:text="${purchaseitem.getId()}">ID</span>
+                <span th:text="${purchaseitem.getPrice()}">Price</span>
+                <span th:text="${purchaseitem.getRate()}">Rate</span>
+                <span th:text="${purchaseitem.getQuantity()}">Quantity</span>
+                <span th:text="${purchaseitem.getProduct().getName()}">Product Name</span>
+            </p>
+        </td>
     </tr>
     </tbody>
 </table>

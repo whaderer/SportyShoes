@@ -175,6 +175,7 @@ public class CartController {
                 PurchaseItem pItem = new PurchaseItem();
                 pItem.setPurchaseId(purchaseId);
                 pItem.setProduct(productService.getProductById(item.getProductId()));
+                //  pItem.setProduct(productService.getAllProducts());
                 pItem.setUserId(userId);
                 pItem.setRate(item.getRate());
                 pItem.setQuantity(item.getQuantity());

@@ -17,7 +17,7 @@
             <form method="POST" th:action="@{/logout}">
                 <input type="submit" value="Logout"/>
             </form>
-            <a href="editprofile">Edit Profile</a>
+            <a th:href="@{/editprofile}">Edit Profile</a>
             <a th:href="@{/memberpurchases}">Your Orders</a>
         </div>
     </div>

@@ -30,7 +30,6 @@ public class PurchaseItem {
 
     private BigDecimal price;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_Id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
 }

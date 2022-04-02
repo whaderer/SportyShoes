@@ -28,14 +28,15 @@ public class Product {
 
     private Long categoryId;
 
-    @OneToOne(mappedBy = "product")
-    private PurchaseItem purchaseItem;
-
-    public PurchaseItem getPurchaseItem() {
-        return purchaseItem;
-    }
-
-    public void setPurchaseItem(PurchaseItem purchaseItem) {
-        this.purchaseItem = purchaseItem;
-    }
+//    @ManyToOne
+//    @JoinColumn(name="id")
+//    private PurchaseItem purchaseItem;
+//
+//    public PurchaseItem getPurchaseItem() {
+//        return purchaseItem;
+//    }
+//
+//    public void setPurchaseItem(PurchaseItem purchaseItem) {
+//        this.purchaseItem = purchaseItem;
+//    }
 }

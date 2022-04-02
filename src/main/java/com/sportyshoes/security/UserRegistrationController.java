@@ -5,10 +5,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/register")
 public class UserRegistrationController {
 
     private final UserRepository userRepository;
@@ -19,14 +17,19 @@ public class UserRegistrationController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping
+    @GetMapping("/register")
     public String registerForm() {
         return "userRegistration";
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public String processRegistration(UserRegistrationForm form) {
         userRepository.save(form.toUser(passwordEncoder));
-        return "redirect:/home/allProducts";
+        return "redirect:/registerconfirm";
+    }
+
+    @GetMapping("/registerconfirm")
+    public String registerconfirm() {
+        return "register-confirm";
     }
 }

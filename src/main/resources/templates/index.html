@@ -19,7 +19,7 @@
     <tbody>
     <tr th:each="p : ${allProducts}">
         <td th:text="${p.getName()}">Name</td>
-        <td th:text="${p.getPrice()}">Name</td>
+        <td th:text="${p.getPrice()}">Price</td>
         <td th:text="${p.getDateAdded()}">Date</td>
         <td th:text="${mapCategories.get(p.id)}">ID</td>
         <td>

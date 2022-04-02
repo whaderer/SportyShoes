@@ -19,13 +19,11 @@ public class HomeController {
 
     private final ProductService productService;
     private final CategoryService categoryService;
-    private final UserRepository userRepository;
 
     @Autowired
     public HomeController(ProductService productService, CategoryService categoryService, UserRepository userRepository) {
         this.productService = productService;
         this.categoryService = categoryService;
-        this.userRepository = userRepository;
     }
 
     // curl -X GET -H 'content-type:application/json' http://localhost:8080/home/allProducts
@@ -64,8 +62,7 @@ public class HomeController {
     // curl -X POST -H 'content-type:application/json' -d '{"name": "fish"}' http://localhost:8080/home/addCategory
 
     @PostMapping(path = "/addCategory") // Map ONLY POST Requests
-    public @ResponseBody
-    String addNewCategory(
+    public @ResponseBody String addNewCategory(
             @RequestBody Category category) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request

@@ -16,8 +16,8 @@ import java.util.Date;
 
 @Entity
 @Data
-@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PUBLIC, force = true)
 public class User implements UserDetails {
 
     private static final long serialVersionUID = 1L;
@@ -27,15 +27,25 @@ public class User implements UserDetails {
     private Long id;
 
     // ToDo validation
-    private final String username;
-    private final String firstname;
-    private final String lastname;
-    private final String address;
-    private final int age;
-    private final String password;
+    private String username;
+    private String firstname;
+    private String lastname;
+    private String address;
+    private int age;
+    private String password;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateAdded;
+
+    public User(String username, String firstname, String lastname, String address, int age, String encode) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.address = address;
+        this.age = age;
+        this.password = encode;
+    }
+
     @PrePersist
     private void onCreate() {
         dateAdded = new Date();
