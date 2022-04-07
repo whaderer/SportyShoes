@@ -3,6 +3,7 @@ package com.sportyshoes.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -14,9 +15,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
+@Order(1)
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -90,11 +92,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and() // replace built-in login page
                 .formLogin()
                 .loginPage("/login") // login page path
+                .loginProcessingUrl("/user_login")
                 .defaultSuccessUrl("/dashboard")
                 .failureUrl("/login-error")
                 .and()
                 .logout()
                 .logoutSuccessUrl("/home/allProducts")
+                .deleteCookies("JSESSIONID")
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/403")
                 .and()
                 .csrf().disable()
              //   .anonymous().disable()

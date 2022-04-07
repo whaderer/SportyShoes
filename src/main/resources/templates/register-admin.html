@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sporty Shoes - Register</title>
+</head>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+<body>
+<h1>Register</h1>
+
+<form method="POST" th:action="@{/registeradmin}" id="registerForm">
+
+    <label for="adminId">Email id</label>
+    <input type="email" name="adminId"/><br/>
+
+    <label for="adminPwd">Password</label>
+    <input type="password" name="adminPwd"/><br/>
+
+    <label for="confirm">Confirm password</label>
+    <input type="password" name="confirm"/><br/>
+
+    <input type="submit" value="Register"/>
+    <a th:href="@{/userlogin}">Already a member? Login</a>
+</form>

@@ -38,5 +38,4 @@ public class UserRepositoryUserDetailsService
             !(SecurityContextHolder.getContext().getAuthentication()
                     instanceof AnonymousAuthenticationToken);
   }
-
 }

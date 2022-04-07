@@ -1,4 +1,5 @@
 package com.sportyshoes.controllers;
+
 import com.sportyshoes.models.Purchase;
 import com.sportyshoes.models.PurchaseItem;
 import com.sportyshoes.security.UserRepositoryUserDetailsService;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -36,9 +38,10 @@ public class PurchaseController {
             BigDecimal total = new BigDecimal("0.0");
             Long userId = userRepositoryUserDetailsService.loadUserByUsername(authentication.getName()).getId();
             List<Purchase> purchaseList = purchaseService.getAllPurchasesByUserId(userId);
+            List<PurchaseItem> purchaseItemList = new ArrayList<PurchaseItem>();
             for (Purchase purchase : purchaseList) {
                 total = total.add(purchase.getTotal());
-                List<PurchaseItem> purchaseItemList = purchaseItemService.getAllPurchaseItemsByPurchaseId(purchase.getId());
+                purchaseItemList.addAll(purchaseItemService.getAllPurchaseItemsByPurchaseId(purchase.getId()));
                 model.addAttribute("purchaseItemList", purchaseItemList);
             }
             model.addAttribute("totalAmount", total);
@@ -46,7 +49,7 @@ public class PurchaseController {
             model.addAttribute("pageTitle", "SPORTY SHOES - YOUR ORDERS");
             return "purchases";
         }
-        return "userLogin";
+        return "user-login";
     }
 }
 

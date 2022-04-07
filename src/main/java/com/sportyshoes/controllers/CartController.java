@@ -208,7 +208,7 @@ public class CartController {
             model.addAttribute("error", "Error, You need to login before completing the purchase");
         }
         model.addAttribute("pageTitle", "SPORTY SHOES - PURCHASE CONFIRMATION");
-        return "confirm";
+        return "order-confirm";
     }
 
     private List<CartItem> populateCartItemList(HttpSession session) {

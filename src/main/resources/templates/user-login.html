@@ -1,10 +1,10 @@
-<!-- tag::all[] -->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Sporty Shoes</title>
+    <meta charset="UTF-8">
+    <title>TEST</title>
 </head>
-
+<div th:replace="fragments/header :: header">&nbsp;</div>
 <body>
 <h1>Login</h1>
 
@@ -22,7 +22,7 @@
 <!--By default, Spring Security listens for login requests
 at /login and expects that the username and password fields be named username and
 password.-->
-<form method="POST" th:action="@{/login}" id="loginForm">
+<form method="POST" th:action="@{/user_login}" id="loginForm">
     <!-- end::thAction[] -->
     <label for="username">Username: </label>
     <input type="email" name="username" id="username"/><br/>

@@ -1,7 +1,6 @@
 package com.sportyshoes.controllers;
 
 import com.sportyshoes.models.User;
-import com.sportyshoes.repositories.UserRepository;
 import com.sportyshoes.security.UserRegistrationForm;
 import com.sportyshoes.security.UserRepositoryUserDetailsService;
 import com.sportyshoes.services.UserService;
@@ -33,7 +32,7 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
-        return "userLogin";
+        return "user-login";
     }
 
     @RequestMapping(value = "/login-error", method = RequestMethod.GET)
@@ -49,32 +48,20 @@ public class UserController {
             }
         }
         model.addAttribute("errorMessage", errorMessage);
-        return "userLogin";
+        return "user-login";
     }
-
-/*    @PostMapping(path = "/addCategory") // Map ONLY POST Requests
-    public @ResponseBody String addNewCategory(
-            @RequestBody User user) {
-        // @ResponseBody means the returned String is the response, not a view name
-        // @RequestParam means it is a parameter from the GET or POST request
-        categoryService.addCategory(category);
-        return "Saved";
-    }*/
 
     @GetMapping("/editprofile")
     public String editUserForm(Authentication authentication, Model model, javax.servlet.http.HttpServletRequest request) {
-        System.out.println("editprofile");
         if (userRepositoryUserDetailsService.isUserAuthenticated()) {
-            System.out.println("editprofile IF");
             Long userId = userRepositoryUserDetailsService.loadUserByUsername(authentication.getName()).getId();
             User user = userService.getUserById(userId);
-            System.out.println("USER: " + user.getUsername());
             HttpSession session = request.getSession();
             session.setAttribute("userToUpdate", user);
             model.addAttribute("user", user);
-            return "editUserProfile";
+            return "edit-profile";
         }
-        return "userLogin";
+        return "user-login";
     }
 
     // ToDo Validation
