@@ -15,10 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-@Order(1)
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
-public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
+public class securityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -28,7 +27,7 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
     // at login is encoded using the same algorithm, and it’s then compared with the encoded
     // password in the database. That comparison is performed in the PasswordEncoder’s matches() method.
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -82,43 +81,102 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
     // of ROLE_USER. Don’t include the ROLE_ prefix on roles passed to hasRole(); it
     // will be assumed by hasRole().
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/dashboard", "/cart").access("hasRole('USER')")
-                .antMatchers("/", "/**").access("permitAll()")
+    @Configuration
+    @Order(1)
+    public static class App1ConfigurationAdapter extends WebSecurityConfigurerAdapter {
+        public App1ConfigurationAdapter() {
+            super();
+        }
 
-                .and() // replace built-in login page
-                .formLogin()
-                .loginPage("/login") // login page path
-                .loginProcessingUrl("/user_login")
-                .defaultSuccessUrl("/dashboard")
-                .failureUrl("/login-error")
-                .and()
-                .logout()
-                .logoutSuccessUrl("/home/allProducts")
-                .deleteCookies("JSESSIONID")
-                .and()
-                .exceptionHandling()
-                .accessDeniedPage("/403")
-                .and()
-                .csrf().disable()
-             //   .anonymous().disable()
-        ;
+        @Override
+        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+            auth.inMemoryAuthentication()
+                    .withUser("user")
+                    .password(passwordEncoder().encode("user"))
+                    .roles("USER");
+        }
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http
+                    .authorizeRequests()
+                    .antMatchers("/dashboard", "/cart").access("hasRole('USER')")
+                    .antMatchers("/", "/**").access("permitAll()")
+                    .and() // replace built-in login page
+                    .formLogin()
+                    .loginPage("/user-login") // login page path
+                    .loginProcessingUrl("/user_login")
+                    .defaultSuccessUrl("/user_dashboard")
+                    .failureUrl("/user_login_error")
+                    .and()
+                    .logout()
+                    .logoutUrl("/user_logout")
+                    .logoutSuccessUrl("/home/allProducts")
+                    .deleteCookies("JSESSIONID")
+                    .and()
+                    .exceptionHandling()
+                    .accessDeniedPage("/403")
+                    .and()
+                    .csrf().disable()
+            //   .anonymous().disable()
+            ;
+        }
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth)
-            throws Exception {
-        auth
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
+    @Configuration
+    @Order(2)
+    public static class App2ConfigurationAdapter extends WebSecurityConfigurerAdapter {
+
+        public App2ConfigurationAdapter() {
+            super();
+        }
+
+        @Override
+        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+            auth.inMemoryAuthentication()
+                    .withUser("admin")
+                    .password(passwordEncoder().encode("admin"))
+                    .roles("ADMIN");
+        }
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http
+                    .authorizeRequests()
+                    .antMatchers("/admindashboard").access("hasRole('ADMIN')")
+                    .antMatchers("/", "/**").access("permitAll()")
+                    .and() // replace built-in login page
+                    .formLogin()
+                    .loginPage("/admin-login") // login page path
+                    .loginProcessingUrl("/admin_login")
+                    .defaultSuccessUrl("/admin_dashboard")
+                    .failureUrl("/admin_login_error")
+                    .and()
+                    .logout()
+                    .logoutUrl("/admin_logout")
+                    .logoutSuccessUrl("/home/allProducts")
+                    .deleteCookies("JSESSIONID")
+                    .and()
+                    .exceptionHandling()
+                    .accessDeniedPage("/403")
+                    .and()
+                    .csrf().disable()
+            //   .anonymous().disable()
+            ;
+        }
     }
 
-    @Bean(name = "authenticationManager")
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth)
+//            throws Exception {
+//        auth
+//                .userDetailsService(userDetailsService)
+//                .passwordEncoder(passwordEncoder());
+//    }
+
+//    @Bean(name = "authenticationManager")
+//    @Override
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
 }

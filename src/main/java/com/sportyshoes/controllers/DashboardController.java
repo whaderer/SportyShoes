@@ -22,7 +22,7 @@ public class DashboardController {
 
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String dashboard() {
-        return "dashboard";
+        return "user-dashboard";
     }
 
     // accept a java.security.Principal as a parameter. Use the principal name to look up the user from UserRepository

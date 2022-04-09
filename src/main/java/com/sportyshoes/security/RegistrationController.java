@@ -22,7 +22,7 @@ public class RegistrationController {
 
     @GetMapping("/registeruser")
     public String userRegisterForm() {
-        return "register-user";
+        return "user-register";
     }
 
     @PostMapping("/registeruser")
@@ -33,7 +33,7 @@ public class RegistrationController {
 
     @GetMapping("/registeradmin")
     public String adminRegisterForm() {
-        return "register-admin";
+        return "admin-register";
     }
 
     @PostMapping("/registeradmin")

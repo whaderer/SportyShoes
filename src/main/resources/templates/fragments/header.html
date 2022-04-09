@@ -9,14 +9,15 @@
         <div class="navbar-collapse collapse">
             <a th:href="@{/home/allProducts}">Home</a>
             <div th:if="${!#authorization.expression('isAuthenticated()')}">
-                <a th:href="@{/login}">Login</a>
+                <a th:href="@{/login_user}">User Login</a>
                 <a th:href="@{/registeruser}">Signup</a>
             </div>
-            <a th:href="@{/admindashboard}">Admin Dashboard</a>
+            <a th:href="@{/login_admin}">Admin Login</a>
+            <a th:href="@{/admin_dashboard}">Admin Dashboard</a>
             <a th:href="@{/registeradmin}">Register Admin</a>
-            <a th:href="@{/dashboard}">Dashboard</a>
+            <a th:href="@{/useer_dashboard}">User Dashboard</a>
             <a th:href="@{/cart}">Cart</a>
-            <form method="POST" th:action="@{/logout}">
+            <form method="POST" th:action="@{/user_logout}">
                 <input type="submit" value="Logout"/>
             </form>
             <a th:href="@{/editprofile}">Edit Profile</a>

@@ -30,12 +30,12 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login_user", method = RequestMethod.GET)
     public String login() {
         return "user-login";
     }
 
-    @RequestMapping(value = "/login-error", method = RequestMethod.GET)
+    @RequestMapping(value = "/user_login_error", method = RequestMethod.GET)
     public String login(HttpServletRequest request, Model model) {
         // will return current session if current session exists. If not, it will not create a new session.
         HttpSession session = request.getSession(false);
@@ -49,6 +49,11 @@ public class UserController {
         }
         model.addAttribute("errorMessage", errorMessage);
         return "user-login";
+    }
+
+    @RequestMapping(value = "/user_dashboard", method = RequestMethod.GET)
+    public String getUserDashboard() {
+        return "user-dashboard";
     }
 
     @GetMapping("/editprofile")
