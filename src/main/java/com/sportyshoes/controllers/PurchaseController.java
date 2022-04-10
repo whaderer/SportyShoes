@@ -2,6 +2,8 @@ package com.sportyshoes.controllers;
 
 import com.sportyshoes.models.Purchase;
 import com.sportyshoes.models.PurchaseItem;
+import com.sportyshoes.models.User;
+import com.sportyshoes.security.SecurityUser;
 import com.sportyshoes.security.UserRepositoryUserDetailsService;
 import com.sportyshoes.services.PurchaseItemService;
 import com.sportyshoes.services.PurchaseService;
@@ -35,19 +37,20 @@ public class PurchaseController {
             Authentication authentication
     ) {
         if (userRepositoryUserDetailsService.isUserAuthenticated()) {
-//            BigDecimal total = new BigDecimal("0.0");
-//            Long userId = userRepositoryUserDetailsService.loadUserByUsername(authentication.getName()).getId();
-//            List<Purchase> purchaseList = purchaseService.getAllPurchasesByUserId(userId);
-//            List<PurchaseItem> purchaseItemList = new ArrayList<PurchaseItem>();
-//            for (Purchase purchase : purchaseList) {
-//                total = total.add(purchase.getTotal());
-//                purchaseItemList.addAll(purchaseItemService.getAllPurchaseItemsByPurchaseId(purchase.getId()));
-//                model.addAttribute("purchaseItemList", purchaseItemList);
-//            }
-//            model.addAttribute("totalAmount", total);
-//            model.addAttribute("purchaseList", purchaseList);
-//            model.addAttribute("pageTitle", "SPORTY SHOES - YOUR ORDERS");
-//            return "purchases";
+            BigDecimal total = new BigDecimal("0.0");
+            SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
+            Long userId = securityUser.getUser().getId();
+            List<Purchase> purchaseList = purchaseService.getAllPurchasesByUserId(userId);
+            List<PurchaseItem> purchaseItemList = new ArrayList<PurchaseItem>();
+            for (Purchase purchase : purchaseList) {
+                total = total.add(purchase.getTotal());
+                purchaseItemList.addAll(purchaseItemService.getAllPurchaseItemsByPurchaseId(purchase.getId()));
+                model.addAttribute("purchaseItemList", purchaseItemList);
+            }
+            model.addAttribute("totalAmount", total);
+            model.addAttribute("purchaseList", purchaseList);
+            model.addAttribute("pageTitle", "SPORTY SHOES - YOUR ORDERS");
+            return "purchases";
         }
         return "user-login";
     }

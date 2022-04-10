@@ -13,12 +13,6 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class AdminController {
 
-    @RequestMapping(value = "/login_admin", method = RequestMethod.GET)
-    public String login() {
-        System.out.println("ADMIN LOGIN");
-        return "admin-login";
-    }
-
     @RequestMapping(value = "/admin_login_error", method = RequestMethod.GET)
     public String login(HttpServletRequest request, Model model) {
         // will return current session if current session exists. If not, it will not create a new session.
@@ -32,7 +26,7 @@ public class AdminController {
             }
         }
         model.addAttribute("errorMessage", errorMessage);
-        return "admin-login";
+        return "user-login";
     }
 
     @RequestMapping(value = "/admin_dashboard", method = RequestMethod.GET)

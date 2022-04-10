@@ -52,11 +52,6 @@ public class UserController {
         return "user-login";
     }
 
-    @RequestMapping(value = "/user_dashboard", method = RequestMethod.GET)
-    public String getUserDashboard() {
-        return "user-dashboard";
-    }
-
     @GetMapping("/editprofile")
     public String editUserForm(Authentication authentication, Model model, javax.servlet.http.HttpServletRequest request) {
         if (userRepositoryUserDetailsService.isUserAuthenticated()) {

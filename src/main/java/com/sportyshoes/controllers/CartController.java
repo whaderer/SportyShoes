@@ -4,6 +4,7 @@ import com.sportyshoes.models.CartItem;
 import com.sportyshoes.models.Product;
 import com.sportyshoes.models.Purchase;
 import com.sportyshoes.models.PurchaseItem;
+import com.sportyshoes.security.SecurityUser;
 import com.sportyshoes.security.UserRepositoryUserDetailsService;
 import com.sportyshoes.services.ProductService;
 import com.sportyshoes.services.PurchaseItemService;
@@ -159,34 +160,34 @@ public class CartController {
             Authentication authentication
     ) {
         HttpSession session = request.getSession();
-//        if (userRepositoryUserDetailsService.isUserAuthenticated()) {
-//            // take items from cart and update the database
-//            List<CartItem> cartItems = populateCartItemList(session);
-//            BigDecimal totalValue = getCartValue(cartItems);
-//            Long userId = userRepositoryUserDetailsService.loadUserByUsername(authentication.getName()).getId();
-//
-//            Purchase purchase = new Purchase();
-//            purchase.setUserId(userId);
-//            purchase.setDate(Calendar.getInstance().getTime());
-//            purchase.setTotal(totalValue);
-//            long purchaseId = purchaseService.addPurchase(purchase).getId();
-//
-//            for (CartItem item : cartItems) {
-//                PurchaseItem pItem = new PurchaseItem();
-//                pItem.setPurchaseId(purchaseId);
-//                pItem.setProduct(productService.getProductById(item.getProductId()));
-//                //  pItem.setProduct(productService.getAllProducts());
-//                pItem.setUserId(userId);
-//                pItem.setRate(item.getRate());
-//                pItem.setQuantity(item.getQuantity());
-//                pItem.setPrice(item.getPrice());
-//                purchaseItemService.addPurchaseItem(pItem);
-//            }
-//            model.addAttribute("cartValue", totalValue);
-//            model.addAttribute("cartItems", cartItems);
-//        } else {
-//            model.addAttribute("error", "Error, You need to login before completing purchase");
-//        }
+        if (userRepositoryUserDetailsService.isUserAuthenticated()) {
+            // take items from cart and update the database
+            List<CartItem> cartItems = populateCartItemList(session);
+            BigDecimal totalValue = getCartValue(cartItems);
+            SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
+            Long userId = securityUser.getUser().getId();
+            Purchase purchase = new Purchase();
+            purchase.setUserId(userId);
+            purchase.setDate(Calendar.getInstance().getTime());
+            purchase.setTotal(totalValue);
+            long purchaseId = purchaseService.addPurchase(purchase).getId();
+
+            for (CartItem item : cartItems) {
+                PurchaseItem pItem = new PurchaseItem();
+                pItem.setPurchaseId(purchaseId);
+                pItem.setProduct(productService.getProductById(item.getProductId()));
+                //  pItem.setProduct(productService.getAllProducts());
+                pItem.setUserId(userId);
+                pItem.setRate(item.getRate());
+                pItem.setQuantity(item.getQuantity());
+                pItem.setPrice(item.getPrice());
+                purchaseItemService.addPurchaseItem(pItem);
+            }
+            model.addAttribute("cartValue", totalValue);
+            model.addAttribute("cartItems", cartItems);
+        } else {
+            model.addAttribute("error", "Error, You need to login before completing purchase");
+        }
         return "redirect:confirm";
     }
 

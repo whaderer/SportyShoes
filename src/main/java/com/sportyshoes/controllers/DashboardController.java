@@ -20,8 +20,8 @@ public class DashboardController {
         this.userRepository = userRepository;
     }
 
-    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public String dashboard() {
+    @RequestMapping(value = "/user_dashboard", method = RequestMethod.GET)
+    public String getUserDashboard() {
         return "user-dashboard";
     }
 
