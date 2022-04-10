@@ -19,9 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class securityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
-
     // declare a PasswordEncoder bean
     // the password in the database is never decoded. Instead, the password that the user enters
     // at login is encoded using the same algorithm, and it’s then compared with the encoded
@@ -29,6 +26,12 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean(name = "authenticationManager")
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
     // To configure a user store for authentication purposes, you’ll need to declare a
@@ -84,27 +87,32 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
     @Configuration
     @Order(1)
     public static class App1ConfigurationAdapter extends WebSecurityConfigurerAdapter {
+
+        @Autowired
+        private UserDetailsService userDetailsService;
+
         public App1ConfigurationAdapter() {
             super();
         }
 
         @Override
-        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth.inMemoryAuthentication()
-                    .withUser("user")
-                    .password(passwordEncoder().encode("user"))
-                    .roles("USER");
+        protected void configure(AuthenticationManagerBuilder auth)
+                throws Exception {
+            auth
+                    .userDetailsService(userDetailsService)
+                    .passwordEncoder(passwordEncoder());
         }
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http
+                    .antMatcher("/user*")
                     .authorizeRequests()
                     .antMatchers("/dashboard", "/cart").access("hasRole('USER')")
                     .antMatchers("/", "/**").access("permitAll()")
                     .and() // replace built-in login page
                     .formLogin()
-                    .loginPage("/user-login") // login page path
+                    .loginPage("/login-user") // login page path
                     .loginProcessingUrl("/user_login")
                     .defaultSuccessUrl("/user_dashboard")
                     .failureUrl("/user_login_error")
@@ -117,8 +125,8 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
                     .exceptionHandling()
                     .accessDeniedPage("/403")
                     .and()
-                    .csrf().disable()
-            //   .anonymous().disable()
+                    .csrf().
+                    disable()
             ;
         }
     }
@@ -127,27 +135,31 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
     @Order(2)
     public static class App2ConfigurationAdapter extends WebSecurityConfigurerAdapter {
 
+        @Autowired
+        private UserDetailsService userDetailsService;
+
         public App2ConfigurationAdapter() {
             super();
         }
 
         @Override
-        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth.inMemoryAuthentication()
-                    .withUser("admin")
-                    .password(passwordEncoder().encode("admin"))
-                    .roles("ADMIN");
+        protected void configure(AuthenticationManagerBuilder auth)
+                throws Exception {
+            auth
+                    .userDetailsService(userDetailsService)
+                    .passwordEncoder(passwordEncoder());
         }
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http
+                    .antMatcher("/admin*")
                     .authorizeRequests()
                     .antMatchers("/admindashboard").access("hasRole('ADMIN')")
                     .antMatchers("/", "/**").access("permitAll()")
                     .and() // replace built-in login page
                     .formLogin()
-                    .loginPage("/admin-login") // login page path
+                    .loginPage("/login-admin") // login page path
                     .loginProcessingUrl("/admin_login")
                     .defaultSuccessUrl("/admin_dashboard")
                     .failureUrl("/admin_login_error")
@@ -161,22 +173,7 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
                     .accessDeniedPage("/403")
                     .and()
                     .csrf().disable()
-            //   .anonymous().disable()
             ;
         }
     }
-
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth)
-//            throws Exception {
-//        auth
-//                .userDetailsService(userDetailsService)
-//                .passwordEncoder(passwordEncoder());
-//    }
-
-//    @Bean(name = "authenticationManager")
-//    @Override
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
 }

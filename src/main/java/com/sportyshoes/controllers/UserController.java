@@ -32,6 +32,7 @@ public class UserController {
 
     @RequestMapping(value = "/login_user", method = RequestMethod.GET)
     public String login() {
+        System.out.println("USER LOGIN");
         return "user-login";
     }
 
@@ -59,11 +60,11 @@ public class UserController {
     @GetMapping("/editprofile")
     public String editUserForm(Authentication authentication, Model model, javax.servlet.http.HttpServletRequest request) {
         if (userRepositoryUserDetailsService.isUserAuthenticated()) {
-            Long userId = userRepositoryUserDetailsService.loadUserByUsername(authentication.getName()).getId();
-            User user = userService.getUserById(userId);
-            HttpSession session = request.getSession();
-            session.setAttribute("userToUpdate", user);
-            model.addAttribute("user", user);
+//            Long userId = userRepositoryUserDetailsService.loadUserByUsername(authentication.getName()).getId();
+//            User user = userService.getUserById(userId);
+//            HttpSession session = request.getSession();
+//            session.setAttribute("userToUpdate", user);
+//            model.addAttribute("user", user);
             return "edit-profile";
         }
         return "user-login";

@@ -13,8 +13,10 @@ public class UserRegistrationForm {
     private String address;
     private int age;
     private String password;
+    private String role;
+    private boolean enabled = true;
 
     public User toUser(PasswordEncoder passwordEncoder) {
-        return new User(username, firstname, lastname, address, age, passwordEncoder.encode(password));
+        return new User(username, firstname, lastname, address, age, passwordEncoder.encode(password), role, enabled);
     }
 }

@@ -4,7 +4,6 @@ import com.sportyshoes.exceptions.ProductNotFoundException;
 import com.sportyshoes.models.Product;
 import com.sportyshoes.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

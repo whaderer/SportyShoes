@@ -1,11 +1,12 @@
 package com.sportyshoes.security;
 
+
 import com.sportyshoes.models.User;
-import com.sportyshoes.repositories.AdminRepository;
 import com.sportyshoes.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -22,26 +23,15 @@ public class UserRepositoryUserDetailsService
     }
 
     @Override
-    public User loadUserByUsername(String username)
+    public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-        User user = userRepo.findByUsername(username);
+       User user = userRepo.findByUsername(username);
         if (user != null) {
-            return user;
+            return new SecurityUser(user);
         }
         throw new UsernameNotFoundException(
                 "User '" + username + "' not found");
     }
-
-//    @Override
-//    public Admin loadUserByUsername(String username)
-//            throws UsernameNotFoundException {
-//        Admin admin = adminRepo.findByUsername(username);
-//        if (admin != null) {
-//            return admin;
-//        }
-//        throw new UsernameNotFoundException(
-//                "Admin '" + username + "' not found");
-//    }
 
     public boolean isUserAuthenticated() {
         return SecurityContextHolder.getContext().getAuthentication() != null &&
@@ -50,4 +40,5 @@ public class UserRepositoryUserDetailsService
                 !(SecurityContextHolder.getContext().getAuthentication()
                         instanceof AnonymousAuthenticationToken);
     }
+
 }

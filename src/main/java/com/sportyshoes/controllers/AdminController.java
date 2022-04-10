@@ -15,6 +15,7 @@ public class AdminController {
 
     @RequestMapping(value = "/login_admin", method = RequestMethod.GET)
     public String login() {
+        System.out.println("ADMIN LOGIN");
         return "admin-login";
     }
 

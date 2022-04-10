@@ -10,13 +10,15 @@
 <form method="POST" th:action="@{/registeradmin}" id="registerForm">
 
     <label for="adminId">Email id</label>
-    <input type="email" name="adminId"/><br/>
+    <input type="email" name="username"/><br/>
 
     <label for="adminPwd">Password</label>
-    <input type="password" name="adminPwd"/><br/>
+    <input type="password" name="password"/><br/>
 
     <label for="confirm">Confirm password</label>
     <input type="password" name="confirm"/><br/>
+
+    <input type="hidden" name="role" value="ROLE_ADMIN"/><br/>
 
     <input type="submit" value="Register"/>
     <a th:href="@{/userlogin}">Already a member? Login</a>
