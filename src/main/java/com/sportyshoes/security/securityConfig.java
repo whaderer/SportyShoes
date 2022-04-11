@@ -43,7 +43,7 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login_user") // login page path
                 .loginProcessingUrl("/user_login")
                 .defaultSuccessUrl("/user_dashboard")
-                .failureUrl("/login-error")
+                .failureUrl("/login_error")
                 .and()
                 .logout()
                 .logoutSuccessUrl("/home/allProducts")

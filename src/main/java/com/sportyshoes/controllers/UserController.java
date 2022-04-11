@@ -1,6 +1,7 @@
 package com.sportyshoes.controllers;
 
 import com.sportyshoes.models.User;
+import com.sportyshoes.security.SecurityUser;
 import com.sportyshoes.security.UserRegistrationForm;
 import com.sportyshoes.security.UserRepositoryUserDetailsService;
 import com.sportyshoes.services.UserService;
@@ -36,7 +37,7 @@ public class UserController {
         return "user-login";
     }
 
-    @RequestMapping(value = "/user_login_error", method = RequestMethod.GET)
+    @RequestMapping(value = "/login_error", method = RequestMethod.GET)
     public String login(HttpServletRequest request, Model model) {
         // will return current session if current session exists. If not, it will not create a new session.
         HttpSession session = request.getSession(false);
@@ -55,11 +56,12 @@ public class UserController {
     @GetMapping("/editprofile")
     public String editUserForm(Authentication authentication, Model model, javax.servlet.http.HttpServletRequest request) {
         if (userRepositoryUserDetailsService.isUserAuthenticated()) {
-//            Long userId = userRepositoryUserDetailsService.loadUserByUsername(authentication.getName()).getId();
-//            User user = userService.getUserById(userId);
-//            HttpSession session = request.getSession();
-//            session.setAttribute("userToUpdate", user);
-//            model.addAttribute("user", user);
+            SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
+            Long userId = securityUser.getUser().getId();
+            User user = userService.getUserById(userId);
+            HttpSession session = request.getSession();
+            session.setAttribute("userToUpdate", user);
+            model.addAttribute("user", user);
             return "edit-profile";
         }
         return "user-login";

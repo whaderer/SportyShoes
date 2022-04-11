@@ -2,7 +2,6 @@ package com.sportyshoes.controllers;
 
 import com.sportyshoes.models.Purchase;
 import com.sportyshoes.models.PurchaseItem;
-import com.sportyshoes.models.User;
 import com.sportyshoes.security.SecurityUser;
 import com.sportyshoes.security.UserRepositoryUserDetailsService;
 import com.sportyshoes.services.PurchaseItemService;
