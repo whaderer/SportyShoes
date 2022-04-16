@@ -13,7 +13,7 @@ public class ExceptionControllerAdvice {
   @ExceptionHandler(ProductNotFoundException.class)
   public ResponseEntity<ErrorDetails> exceptionNotEnoughMoneyHandler() {
     ErrorDetails errorDetails = new ErrorDetails();
-    errorDetails.setMessage("Not enough money to make the payment.");
+    errorDetails.setMessage("Product not found");
     return ResponseEntity
         .badRequest()
         .body(errorDetails);

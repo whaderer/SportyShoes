@@ -47,7 +47,7 @@ public class HomeController {
 //        model.addAttribute(products);
 //    }
 
-    // curl -X POST -H 'content-type:application/json' -d '{"name": "fish", "price" : "100", "dateAdded" : "2019-02-03", "categoryId" : "1"}' http://localhost:8080/home/addProduct
+    // curl -X POST -H 'content-type:application/json' -d '{"name": "fish and chips", "price" : "100", "dateAdded" : "2022-02-03", "categoryId" : "1"}' http://localhost:8080/home/addProduct
 
     @PostMapping(path = "/addProduct") // Map ONLY POST Requests
     public @ResponseBody

@@ -1,6 +1,7 @@
 package com.sportyshoes.models;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,6 +39,7 @@ public class User {
     private boolean enabled;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateAdded;
 
     public User(String username, String firstname, String lastname, String address, int age, String encode, String role, boolean enabled) {

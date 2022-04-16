@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TEST</title>
+</head>
+<div th:replace="fragments/admin-header :: header">&nbsp;</div>
+<body>
+
+Total Products:
+<p th:text="${categoryList.size()}"></p>
+<a th:href="@{/admin_edit_product?id=-1}">Add Product</a>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="c : ${categoryList}">
+        <td th:text="${c.getName()}">Name</td>
+        <td>
+            <a th:href="@{/admin_edit_product(id=${c.id})}">Edit</a>
+            <a th:href="@{/admin_delete_product(id=${p.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/admin_list_products}"><button>Reset</button></a>
+</body>
+</html>

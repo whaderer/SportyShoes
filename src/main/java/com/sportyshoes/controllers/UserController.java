@@ -33,7 +33,6 @@ public class UserController {
 
     @RequestMapping(value = "/login_user", method = RequestMethod.GET)
     public String login() {
-        System.out.println("USER LOGIN");
         return "user-login";
     }
 
@@ -53,7 +52,7 @@ public class UserController {
         return "user-login";
     }
 
-    @GetMapping("/editprofile")
+    @GetMapping("/user_edit_profile")
     public String editUserForm(Authentication authentication, Model model, javax.servlet.http.HttpServletRequest request) {
         if (userRepositoryUserDetailsService.isUserAuthenticated()) {
             SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
@@ -62,25 +61,24 @@ public class UserController {
             HttpSession session = request.getSession();
             session.setAttribute("userToUpdate", user);
             model.addAttribute("user", user);
-            return "edit-profile";
+            return "user-edit-profile";
         }
         return "user-login";
     }
 
     // ToDo Validation
-    @PostMapping("/editprofile")
+    @PostMapping("/user_process_update")
     public String processUpdate(UserRegistrationForm form, javax.servlet.http.HttpServletRequest request) {
         HttpSession session = request.getSession();
         User userToUpdate = (User) session.getAttribute("userToUpdate");
         userService.updateUser(userToUpdate, form.toUser(passwordEncoder));
-        return "redirect:/editprofileconfirm";
+        return "redirect:/user_edit_profile_confirm";
     }
 
-    @GetMapping("/editprofileconfirm")
-    public String registerconfirm() {
-        return "register-confirm";
+    @GetMapping("/user_edit_profile_confirm")
+    public String editConfirm() {
+        return "user-edit-profile-confirm";
     }
-
 
 //    @PostMapping("/editprofile")
 //    public @ResponseBody String editProfileAction(@RequestBody User user)

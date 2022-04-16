@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TEST</title>
+</head>
+<div th:replace="fragments/admin-header :: header">&nbsp;</div>
+<body>
+
+Total Products:
+<p th:text="${productList.size()}"></p>
+<a th:href="@{/admin_edit_product?id=-1}">Add Product</a>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Date Added</th>
+        <th>Category</th>
+        <td>Edit Product</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="p : ${productList}">
+        <td th:text="${p.getName()}">Name</td>
+        <td th:text="${p.getPrice()}">Price</td>
+        <td th:text="${p.getDateAdded()}">Date Added</td>
+        <td th:text="${mapCategories.get(p.getId())}">Category</td>
+        <td>
+            <a th:href="@{/admin_edit_product(id=${p.id})}">Edit</a>
+            <a th:href="@{/admin_delete_product(id=${p.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<form th:action="@{/list_products_by_category}" method="get">
+    <label for="dropDownList"></label>
+    <select class="form-control" id="dropDownList" name="categoryId">
+        <option value="0">Select Category</option>
+        <option th:each="option : ${categoryList}"
+                th:value="${option.getId()}"
+                th:text="${option.getName()}"
+                th:data="${option.getId()}">
+        </option>
+    </select>
+    <button type="submit">Filter</button>
+</form>
+<a th:href="@{/admin_list_products}"><button>Reset</button></a>
+</body>
+</html>

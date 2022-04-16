@@ -6,7 +6,7 @@
 </head>
 <div th:replace="fragments/header :: header">&nbsp;</div>
 <body>
-<form method="POST" th:action="@{/editprofile}" id="editprofileForm">
+<form method="POST" th:action="@{/user_process_update}" id="editprofileForm">
 
     <label for="username">Email id</label>
     <input type="email" name="username" th:value="${user.getUsername()}"/><br/>
@@ -30,7 +30,7 @@
     <input type="text" name="address" th:value="${user.getAddress()}"/><br/>
 
     <input type="submit" value="Update"/>
-    <a th:href="@{/userlogin}">Already a member? Login</a>
+    <a th:href="@{/login_user}">Already a member? Login</a>
 </form>
 </body>
 </html>

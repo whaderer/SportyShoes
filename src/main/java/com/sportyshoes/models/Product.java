@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -23,20 +24,22 @@ public class Product {
 
     private BigDecimal price;
 
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateAdded;
 
     private Long categoryId;
 
-//    @ManyToOne
-//    @JoinColumn(name="id")
-//    private PurchaseItem purchaseItem;
-//
-//    public PurchaseItem getPurchaseItem() {
-//        return purchaseItem;
-//    }
-//
-//    public void setPurchaseItem(PurchaseItem purchaseItem) {
-//        this.purchaseItem = purchaseItem;
-//    }
+    public Product(String name, BigDecimal price, Date dateAdded, Long categoryId) {
+        this.name = name;
+        this.price = price;
+        this.dateAdded = dateAdded;
+        this.categoryId = categoryId;
+    }
+
+    @PrePersist
+    private void onCreate() {
+        dateAdded = new Date();
+    }
+
 }

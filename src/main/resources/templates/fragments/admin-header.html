@@ -7,13 +7,14 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
     <div class="container">
         <div class="navbar-collapse collapse">
+            <a th:href="@{/home/allProducts}">Home</a>
             <a th:href="@{/registeradmin}">Signup Admin</a>
             <a th:href="@{/admin_dashboard}">Admin Dashboard</a>
-            <a href="adminproducts">Setup Products</a> |
-            <a href="admincategories">Setup Product Categories</a> |
-            <a href="adminmembers">Browse Members</a> |
-            <a href="adminpurchases">Purchase Report</a> |
-            <a href="adminchangepassword">Change Password</a> |
+            <a th:href="@{/admin_list_products}">Setup Products</a>
+            <a th:href="@{/admin_list_categories}">Setup Product Categories</a>
+            <a href="adminmembers">Browse Members</a>
+            <a href="adminpurchases">Purchase Report</a>
+            <a th:href="@{/admin_edit_profile}">Edit Profile</a>
             <a th:href="@{/logout}">Logout</a>
         </div>
     </div>

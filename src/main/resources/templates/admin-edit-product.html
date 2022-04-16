@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TEST</title>
+</head>
+<div th:replace="fragments/admin-header :: header">&nbsp;</div>
+<body>
+<form method="POST" th:action="@{/admin_process_product_update}" id="editProductForm">
+
+    <label for="categoryId">Category</label>
+    <!--    <input type="hidden" name="categoryId" th:value="${productToUpdate.getCategoryId()}"/><br/>-->
+
+    <select class="form-control" id="categoryId" name="categoryId">
+        <option th:value="${productToUpdate.getCategoryId()}"
+                th:text="${mapCategories.get(productToUpdate.getId())}">Select Category
+        </option>
+        <option th:each="option : ${categoryList}"
+                th:value="${option.getId()}"
+                th:text="${option.getName()}"
+                th:data="${option.getId()}">
+        </option>
+    </select>
+
+    <label for="name">Name</label>
+    <input type="text" name="name" th:value="${productToUpdate.getName()}"/><br/>
+
+    <!--    <label for="date_added">Date Added</label>-->
+    <!--    <input type="date" name="date_added"-->
+    <!--           th:value="${#dates.format(productToUpdate.getDateAdded(), 'dd-MM-yyyy')}"/><br/>-->
+
+    <label for="price">Price</label>
+    <input type="number" name="price" th:value="${productToUpdate.getPrice()}"/><br/>
+
+    <input type="submit" value="Update"/>
+</form>
+</body>
+</html>

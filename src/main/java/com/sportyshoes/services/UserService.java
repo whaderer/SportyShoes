@@ -48,8 +48,14 @@ public class UserService {
     }
 
     @Transactional
+    public void updateAdmin(User userToUpdate, User editedUser) {
+        userToUpdate.setPassword(editedUser.getPassword());
+        userToUpdate.setUsername(editedUser.getUsername());
+        userRepository.save(userToUpdate);
+    }
+
+    @Transactional
     public List<User> getAllUsers() {
         return (List<User>) userRepository.findAll();
     }
-
 }
