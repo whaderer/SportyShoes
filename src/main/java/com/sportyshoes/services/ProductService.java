@@ -2,7 +2,6 @@ package com.sportyshoes.services;
 
 import com.sportyshoes.exceptions.ProductNotFoundException;
 import com.sportyshoes.models.Product;
-import com.sportyshoes.models.User;
 import com.sportyshoes.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

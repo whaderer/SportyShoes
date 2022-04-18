@@ -3,7 +3,6 @@ package com.sportyshoes.services;
 import com.sportyshoes.exceptions.ProductNotFoundException;
 import com.sportyshoes.models.Purchase;
 import com.sportyshoes.repositories.PurchaseRepository;
-import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,22 +35,6 @@ public class PurchaseService {
     public List<Purchase> getAllPurchasesByUserId(long userId) {
         return purchaseRepository.getAllItemsByUserId(userId);
     }
-
-//    public long  update3Purchase(Purchase purchase) {
-//        String sql = "";
-//        long newId = 0;
-//        if (purchase.getID() == 0) {
-//            this.sessionFactory.getCurrentSession().save(purchase);
-//            newId = purchase.getID();
-//        } else {
-//            Query query = this.sessionFactory.getCurrentSession().createQuery(sql);
-//            query.setParameter("user_id", purchase.getUserId());
-//            query.setParameter("gross_total", purchase.getTotal());
-//
-//            query.executeUpdate();
-//        }
-//        return newId;
-//    }
 
     @Transactional
     public long  updatePurchase(Purchase purchase) {

@@ -1,25 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Sporty Shoes - Register</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Bootstrap CSS-->
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link th:rel="stylesheet" th:href="@{/styles.css}">
+    <title>TEST</title>
 </head>
-<div th:replace="fragments/header :: header">&nbsp;</div>
 <body>
-<h1>Register</h1>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+<div class="container">
+    <h1>Register</h1>
 
-<form method="POST" th:action="@{/registeradmin}" id="registerForm">
+    <form method="POST" th:action="@{/registeradmin}" id="registerForm">
 
-    <label for="adminId">Email id</label>
-    <input type="email" name="username"/><br/>
+        <label for="adminId">Email id</label>
+        <input type="email" name="username"/><br/>
 
-    <label for="adminPwd">Password</label>
-    <input type="password" name="password"/><br/>
+        <label for="adminPwd">Password</label>
+        <input type="password" name="password"/><br/>
 
-    <label for="confirm">Confirm password</label>
-    <input type="password" name="confirm"/><br/>
+        <label for="confirm">Confirm password</label>
+        <input type="password" name="confirm"/><br/>
 
-    <input type="hidden" name="role" value="ROLE_ADMIN"/><br/>
+        <input type="hidden" name="role" value="ROLE_ADMIN"/><br/>
 
-    <input type="submit" value="Register"/>
-    <a th:href="@{/userlogin}">Already a member? Login</a>
-</form>
+        <input type="submit" value="Register"/>
+        <a th:href="@{/userlogin}">Already a member? Login</a>
+    </form>
+</div>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>

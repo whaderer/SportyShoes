@@ -58,4 +58,9 @@ public class UserService {
     public List<User> getAllUsers() {
         return (List<User>) userRepository.findAll();
     }
+
+    @Transactional
+    public List<User> searchUserByUsername(String username) {
+        return userRepository.searchUserByUsername(username);
+    }
 }

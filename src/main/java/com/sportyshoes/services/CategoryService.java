@@ -2,6 +2,7 @@ package com.sportyshoes.services;
 
 import com.sportyshoes.exceptions.ProductNotFoundException;
 import com.sportyshoes.models.Category;
+import com.sportyshoes.models.Product;
 import com.sportyshoes.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,6 @@ import java.util.Optional;
 
 @Service
 public class CategoryService {
-
 
     private final CategoryRepository categoryRepository;
 
@@ -28,8 +28,9 @@ public class CategoryService {
     }
 
     @Transactional
-    public void updateCategory(Category category) {
-        categoryRepository.updateCategory(category);
+    public void updateCategory(Category categoryToUpdate, Category editedCategory) {
+        categoryToUpdate.setName(editedCategory.getName());
+        categoryRepository.save(categoryToUpdate);
     }
 
     @Transactional

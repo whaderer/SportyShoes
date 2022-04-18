@@ -18,10 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class securityConfig extends WebSecurityConfigurerAdapter {
 
-    // declare a PasswordEncoder bean
-    // the password in the database is never decoded. Instead, the password that the user enters
-    // at login is encoded using the same algorithm, and it’s then compared with the encoded
-    // password in the database. That comparison is performed in the PasswordEncoder’s matches() method.
     @Bean
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

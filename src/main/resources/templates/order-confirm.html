@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Bootstrap CSS-->
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link th:rel="stylesheet" th:href="@{/styles.css}" >
     <title>TEST</title>
 </head>
-<div th:replace="fragments/header :: header">&nbsp;</div>
 <body>
+<div th:replace="fragments/header :: header">&nbsp;</div>
 Your Order worth
 <p th:text="${cartValue}"></p> has been completed successfully.<br><br>
 Check your <a th:href="@{/memberpurchases}">Order History</a>

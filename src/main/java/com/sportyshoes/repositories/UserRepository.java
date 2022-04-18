@@ -1,7 +1,11 @@
 package com.sportyshoes.repositories;
 
 import com.sportyshoes.models.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 
@@ -15,4 +19,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
 //            " where u.id = ?3")
 //    void updateUser(User u);
 
+    @Query(value = "SELECT u FROM User u WHERE u.username LIKE %:username% AND u.role = 'ROLE_USER' ORDER BY u.username")
+    List<User> searchUserByUsername(@Param("username") String username);
 }
+
+
+

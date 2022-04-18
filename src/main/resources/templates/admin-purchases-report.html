@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Bootstrap CSS-->
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link th:rel="stylesheet" th:href="@{/styles.css}">
+    <title>TEST</title>
+</head>
+<body>
+<div th:replace="fragments/admin-header :: header">&nbsp;</div>
+<div class="container">
+    <span class="fw-bold">Orders: </span>
+    <span th:text="${listAllPurchases.size()}"></span>
+    <br>
+    <span class="fw-bold">Total Amount: </span>
+    <span th:text="${totalAmount}"></span>
+
+    <table class="table table-striped table-responsive">
+        <thead>
+        <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">User</th>
+            <th scope="col">Date</th>
+            <th scope="col">Total</th>
+            <th scope="col">Items</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${listAllPurchases}">
+            <td th:text="${p.getId()}"></td>
+            <td th:text="${mapUsers.get(p.getId())}"></td>
+            <td th:text="${#dates.format(p.getDate(), 'dd-MM-yyyy')}"></td>
+            <td th:text="${p.getTotal()}"></td>
+            <td style="white-space: pre-line" th:text="${mapItems.get(p.getId())}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--<br><br>Total :-->
+<!--<p th:text="${purchaseList.size()}"></p> Orders:<br>-->
+<!--<p th:text="${totalAmount}">-->
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <td><b>Order ID</b></td>-->
+<!--        <td><b>Date</b></td>-->
+<!--        <td><b>Total</b></td>-->
+<!--        <td><b>Items</b></td>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr th:each="purchase : ${purchaseList}">-->
+<!--        <td th:text="${purchase.getId()}"></td>-->
+<!--        <td th:text="${purchase.getDate()}"></td>-->
+<!--        <td th:text="${purchase.getTotal()}"></td>-->
+<!--        <td>-->
+<!--            <p th:each="purchaseitem : ${purchaseItemList}">-->
+<!--                <span th:if="${purchase.getId} == ${purchaseitem.getPurchaseId()}"-->
+<!--                      th:text="${purchaseitem.getId()}">ID</span>-->
+<!--                <span th:if="${purchase.getId} == ${purchaseitem.getPurchaseId()}" th:text="${purchaseitem.getPrice()}">Price</span>-->
+<!--                <span th:if="${purchase.getId} == ${purchaseitem.getPurchaseId()}" th:text="${purchaseitem.getRate()}">Rate</span>-->
+<!--                <span th:if="${purchase.getId} == ${purchaseitem.getPurchaseId()}"-->
+<!--                      th:text="${purchaseitem.getQuantity()}">Quantity</span>-->
+<!--                <span th:if="${purchase.getId} == ${purchaseitem.getPurchaseId()}"-->
+<!--                      th:text="${purchaseitem.getProduct().getName()}">Product Name</span>-->
+<!--            </p>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+
+<!--<table border=1 cellspacing=2 cellpadding=4>-->
+
+<!--    <c:forEach items="${list}" var="item">-->
+<!--        <tr>-->
+<!--            <td>${item.ID }</td>-->
+<!--            <td>-->
+<!--                ${mapUsers.get(item.ID)}-->
+<!--            </td>-->
+<!--            <td>${item.date }</td>-->
+<!--            <td>${item.total}</td>-->
+<!--            <td>-->
+<!--                ${mapItems.get(item.ID)}-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--    </c:forEach>-->
+<!--</table>-->
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>

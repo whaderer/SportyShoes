@@ -10,12 +10,16 @@ import javax.persistence.*;
 @Data
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor(access=AccessLevel.PUBLIC, force=true)
-public class Category { 
+@NoArgsConstructor(access = AccessLevel.PUBLIC, force = true)
+public class Category {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-	private String name;
+    private String name;
+
+    public Category(String name) {
+        this.name = name;
+    }
 }

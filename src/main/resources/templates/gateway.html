@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Bootstrap CSS-->
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link th:rel="stylesheet" th:href="@{/styles.css}">
     <title>TEST</title>
 </head>
 <div th:replace="fragments/header :: header">&nbsp;</div>
 <body>
-<br><br>
-<br><br>Your card will be charged an amount of
-<p th:text="${cartValue}"></p><br>
-<a th:href="@{/completepurchase}">Click to complete checkout</a>
+<div class="container">
+    <p>Your card will be charged an amount of</p>
+    <p th:text="${cartValue}"></p><br>
+    <a th:href="@{/completepurchase}">Click to complete checkout</a>
+</div>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 </html>
