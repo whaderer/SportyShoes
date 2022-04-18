@@ -18,8 +18,6 @@ public class SecurityUser implements UserDetails {
         this.user = user;
     }
 
-
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority(user.getRole()));

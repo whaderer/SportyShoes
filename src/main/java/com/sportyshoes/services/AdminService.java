@@ -2,7 +2,6 @@ package com.sportyshoes.services;
 
 import com.sportyshoes.exceptions.ProductNotFoundException;
 import com.sportyshoes.models.Admin;
-import com.sportyshoes.models.User;
 import com.sportyshoes.repositories.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,7 @@ import java.util.Optional;
 @Service
 public class AdminService {
 
-    private AdminRepository adminRepository;
+    private final AdminRepository adminRepository;
 
     @Autowired
     public AdminService(AdminRepository adminRepository) {

@@ -67,7 +67,6 @@ public class AdminController {
         return "user-login";
     }
 
-    // ToDo Validation
     @PostMapping("/admin_process_update")
     public String processUpdate(UserRegistrationForm form, javax.servlet.http.HttpServletRequest request) {
         HttpSession session = request.getSession();

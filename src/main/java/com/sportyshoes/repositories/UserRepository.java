@@ -14,11 +14,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     // to look up a User by their username.
     User findByUsername(String username);
 
-//    @Modifying(clearAutomatically = true)
-//    @Query("update User user set user.address = ?u., user.age = ?2, user.firstname, user.lastname, user.password, user.username" +
-//            " where u.id = ?3")
-//    void updateUser(User u);
-
     @Query(value = "SELECT u FROM User u WHERE u.username LIKE %:username% AND u.role = 'ROLE_USER' ORDER BY u.username")
     List<User> searchUserByUsername(@Param("username") String username);
 }

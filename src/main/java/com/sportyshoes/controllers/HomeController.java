@@ -27,26 +27,6 @@ public class HomeController {
     }
 
     // curl -X GET -H 'content-type:application/json' http://localhost:8080/home/allProducts
-
- /*
-    @GetMapping(path = "/allProducts")
-    // The @ResponseBody annotation tells the dispatcher servlet that the controller’s action
-    // doesn’t return a view name but the data sent directly in the HTTP response.
-    // This returns a JSON or XML with products
-    public @ResponseBody
-    String getAllProducts() {
-       // return productService.getAllProducts();
-        return "home";
-    }
- */
-
-//    @ModelAttribute("allProducts")
-//    public void addProductsToModel(Model model) {
-//        List<Product> products = new ArrayList<>();
-//        this.productService.getAllProducts().forEach(i -> products.add(i));
-//        model.addAttribute(products);
-//    }
-
     // curl -X POST -H 'content-type:application/json' -d '{"name": "fish and chips", "price" : "100", "dateAdded" : "2022-02-03", "categoryId" : "1"}' http://localhost:8080/home/addProduct
 
     @PostMapping(path = "/addProduct") // Map ONLY POST Requests
@@ -64,7 +44,6 @@ public class HomeController {
     @PostMapping(path = "/addCategory") // Map ONLY POST Requests
     public @ResponseBody String addNewCategory(
             @RequestBody Category category) {
-        // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
         categoryService.addCategory(category);
         return "Saved";

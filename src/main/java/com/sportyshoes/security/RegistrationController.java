@@ -42,12 +42,6 @@ public class RegistrationController {
         return "redirect:/registerconfirm";
     }
 
-//    @PostMapping("/registeradmin")
-//    public String adminProcessRegistration(AdminRegistrationForm form) {
-//        adminRepository.save(form.toAdmin(passwordEncoder));
-//        return "redirect:/registerconfirm";
-//    }
-
     @GetMapping("/registerconfirm")
     public String registerconfirm() {
         return "register-confirm";

@@ -20,8 +20,6 @@ public class PurchaseItem {
 
     private Long purchaseId;
 
-    // private Long productId;
-
     private Long userId;
 
     private BigDecimal rate;

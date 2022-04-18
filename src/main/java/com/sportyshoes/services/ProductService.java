@@ -54,9 +54,4 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-//    @Transactional
-//    public List<Object> getAllProductsWithJoin() {
-//        return productRepository.getAllProductsWithJoin();
-//    }
-
 }

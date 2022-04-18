@@ -28,7 +28,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    // ToDo validation
     private String username;
     private String firstname;
     private String lastname;
@@ -57,13 +56,5 @@ public class User {
     private void onCreate() {
         dateAdded = new Date();
     }
-
-    // The getAuthorities() method should return a collection of authorities granted
-    // to the user. The various is* methods return a boolean to indicate whether the user’s
-    // account is enabled, locked, or expired.
-    // The User entity, the getAuthorities() method simply returns a collection
-    // indicating that all users will have been granted ROLE_USER authority. And, at least for
-    // now, there  is no need to disable users, so all of the is* methods return true to
-    // indicate that the users are active.
 
 }

@@ -7,12 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-/**
- * This is NOT a Hibernate class or a table class. This is a POJO which is used internally within the app
- *
- * @author oem
- */
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PUBLIC, force = true)

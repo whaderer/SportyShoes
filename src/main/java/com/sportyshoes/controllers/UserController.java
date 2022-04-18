@@ -66,7 +66,6 @@ public class UserController {
         return "user-login";
     }
 
-    // ToDo Validation
     @PostMapping("/user_process_update")
     public String processUpdate(UserRegistrationForm form, javax.servlet.http.HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -79,50 +78,6 @@ public class UserController {
     public String editConfirm() {
         return "user-edit-profile-confirm";
     }
-
-//    @PostMapping("/editprofile")
-//    public @ResponseBody String editProfileAction(@RequestBody User user)
-//    {
-//        if (userRepositoryUserDetailsService.isUserAuthenticated()) {
-//            return "redirect:userLogin";
-//        }
-//
-//        User user = userService.getUserById((Long) session.getAttribute("user_id"));
-//        map.addAttribute("user", user);
-//
-//        if (pwd == null || pwd2 == null || pwd.equals("") || pwd2.equals("")) {
-//            map.addAttribute("error", "Error , Incomplete passwords submitted.");
-//            return "edit-profile";
-//        }
-//
-//        if (!pwd.equals(pwd2)) {
-//            map.addAttribute("error", "Error , Passwords do not match.");
-//            return "edit-profile";
-//        }
-//
-//        if (fname == null || fname.equals("")) {
-//            map.addAttribute("error", "First name is required.");
-//            return "edit-profile";
-//        }
-//
-//        if (lname == null || lname.equals("")) {
-//            map.addAttribute("error", "Last name is required.");
-//            return "edit-profile";
-//        }
-//        if (age == null || age.equals("")) {
-//            age = "0";
-//        }
-//
-//        user.setFname(fname);
-//        user.setLname(lname);
-//        user.setAge(Integer.parseInt(age));
-//        user.setAddress(address);
-//        user.setPwd(pwd);
-//
-//        userService.updateUser(user);
-//
-//        return "redirect:dashboard";
-//    }
 
 }
 

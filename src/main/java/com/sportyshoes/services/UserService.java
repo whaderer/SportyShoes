@@ -26,16 +26,6 @@ public class UserService {
         return optionalUser.orElseThrow(() -> new ProductNotFoundException());
     }
 
-//    @Transactional
-//    public Optional<User> findById(Long id) {
-//        return userRepository.findById(id);
-//    }
-
-    //    @Transactional
-//    public User getUserByEmailId(String emailId) {
-//        return userRepository.getUserByEmailId(emailId);
-//    }
-//
     @Transactional
     public void updateUser(User userToUpdate, User editedUser) {
         userToUpdate.setAddress(editedUser.getAddress());

@@ -48,17 +48,4 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-//	 @Transactional
-//	 public String getCategoriesDropDown(long id) {
-//		 StringBuilder sb = new StringBuilder("");
-//		 List<Category> purchaseList = categoryRepository.getAllCategories();
-//		 for(Category cat: purchaseList) {
-//			 if (cat.getID() == id)
-//				 sb.append("<option value=" + String.valueOf(cat.getID()) + " selected>" + cat.getName() + "</option>");
-//			 else
-//				 sb.append("<option value=" + String.valueOf(cat.getID()) + ">" + cat.getName() + "</option>");
-//
-//		 }
-//		 return sb.toString();
-//		}
 }

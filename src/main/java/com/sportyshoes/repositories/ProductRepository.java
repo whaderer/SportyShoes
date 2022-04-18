@@ -18,8 +18,4 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     @Query(value = "SELECT * from product p WHERE category_id = ?1", nativeQuery = true)
     List<Product> findByCategoryId(Long categoryId);
 
-//    @Modifying(clearAutomatically = true)
-//    @Query("update Product p set p.name = ?1, p.price = ?2, p.categoryId = ?3 " +
-//            "where p.ID = ?4")
-//    int updateProduct(Product p);
 }

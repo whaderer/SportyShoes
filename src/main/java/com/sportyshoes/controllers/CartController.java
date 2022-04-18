@@ -98,7 +98,6 @@ public class CartController {
             HttpServletRequest request,
             @RequestParam(value = "id", required = true) String id
     ) {
-        // check if user is logged in
         HttpSession session = request.getSession();
         if (userRepositoryUserDetailsService.isUserAuthenticated()) {
             long idValue = Long.parseLong(id);
@@ -130,7 +129,6 @@ public class CartController {
         } else {
             model.addAttribute("error", "Error, You need to login before checking out");
         }
-        model.addAttribute("pageTitle", "SPORTY SHOES - CHECKOUT");
         return "checkout";
     }
 
@@ -148,8 +146,6 @@ public class CartController {
         } else {
             model.addAttribute("error", "Error, You need to login before making payment");
         }
-
-        model.addAttribute("pageTitle", "SPORTY SHOES - PAYMENT GATEWAY");
         return "gateway";
     }
 
@@ -196,10 +192,8 @@ public class CartController {
             Model model,
             HttpServletRequest request
     ) {
-        // check if user is logged in
         HttpSession session = request.getSession();
         if (userRepositoryUserDetailsService.isUserAuthenticated()) {
-            // clear items from cart as order has completed
             List<CartItem> cartItems = populateCartItemList(session);
             BigDecimal totalValue = getCartValue(cartItems);
             model.addAttribute("cartValue", totalValue);
@@ -208,7 +202,6 @@ public class CartController {
         } else {
             model.addAttribute("error", "Error, You need to login before completing the purchase");
         }
-        model.addAttribute("pageTitle", "SPORTY SHOES - PURCHASE CONFIRMATION");
         return "order-confirm";
     }
 
