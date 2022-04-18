@@ -6,11 +6,14 @@
     <!--Bootstrap CSS-->
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
     <link th:rel="stylesheet" th:href="@{/styles.css}">
-    <title>TEST</title>
+    <title>Sporty Shoes</title>
 </head>
 <body>
 <div th:replace="fragments/admin-header :: header">&nbsp;</div>
 <div class="container">
+    <div class="fs-4">
+        Browse Members
+    </div>
     <span class="fw-bold"> Total Members: </span>
     <span th:text="${memberList.size()}"></span>
     <table class="table table-responsive">
@@ -54,7 +57,7 @@
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Search</button>
-        <a type="reset" class="btn btn-primary" th:href="@{/admin_list_members}">Reset</a>
+        <a type="reset" class="btn btn-outline-primary" th:href="@{/admin_list_members}">Reset</a>
     </form>
     <br>
     <div th:if="${searchResult != null}">

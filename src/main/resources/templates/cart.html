@@ -6,13 +6,16 @@
     <!--Bootstrap CSS-->
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
     <link th:rel="stylesheet" th:href="@{/styles.css}">
-    <title>TEST</title>
+    <title>Sporty Shoes</title>
 </head>
 <body>
 <div th:replace="fragments/header :: header">&nbsp;</div>
 <div class="container">
-    <br><br>Total value:
-    <p th:text="${cartValue}"><br>
+    <div class="fs-4">
+       Your Cart
+    </div>
+        <span class="fw-bold">Total value: </span>
+        <span th:text="${cartValue}"></span>
     <table class="table table-striped table-responsive">
         <thead>
         <tr>
@@ -30,7 +33,7 @@
             <td th:text="${c.getRate()}">Rate</td>
             <td th:text="${c.getPrice()}">Price</td>
             <td>
-                <a th:href="@{/cartdeleteitem(id=${c.getProductId()})}">Remove</a>
+                <a class="btn btn-sm btn-primary" th:href="@{/cartdeleteitem(id=${c.getProductId()})}">Remove</a>
             </td>
         </tr>
         </tbody>
@@ -38,7 +41,7 @@
     <div class="alert" th:if="${error}" th:text="${error}"></div>
     <br>
     <div th:if="${cartItems.size()>0}">
-        <a th:href="@{/checkout}">Checkout Now</a>
+        <a class="btn btn-primary" th:href="@{/checkout}">Checkout Now</a>
     </div>
 </div>
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
